@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pushprotocol/restapi": "^1.4.24",
     "@wagmi/core": "^1.4.3",
+    "dotenv": "^16.3.1",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
