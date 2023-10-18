@@ -1,12 +1,140 @@
+'use client'
+
 import Image from 'next/image'
 
+import { useEffect, useState } from 'react'
+import {
+  ADAPTER_EVENTS,
+  CHAIN_NAMESPACES,
+  SafeEventEmitterProvider,
+  UserInfo,
+  WALLET_ADAPTERS
+} from '@web3auth/base'
+
+import { OpenloginAdapter } from '@web3auth/openlogin-adapter'
+import { Web3AuthOptions } from '@web3auth/modal'
+
+import AppBar from './appbar'
+import { AuthKitSignInData, Web3AuthModalPack, Web3AuthEventListener } from '@safe-global/auth-kit'
+
+const connectedHandler: Web3AuthEventListener = (data) => console.log('CONNECTED', data)
+const disconnectedHandler: Web3AuthEventListener = (data) => console.log('DISCONNECTED', data)
+
 export default function Home() {
+
+  const [web3AuthModalPack, setWeb3AuthModalPack] = useState<Web3AuthModalPack>()
+  const [safeAuthSignInResponse, setSafeAuthSignInResponse] = useState<AuthKitSignInData | null>(
+    null
+  )
+  const [userInfo, setUserInfo] = useState<Partial<UserInfo>>()
+  const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null)
+  
+  useEffect(() => {
+    ;(async () => {
+      const clientId = "BIB_W2EEUNforW6NFZlk0zrkx-NGgl5CH8k8jTHwBWr2AjD324_1LzIvyZQ_NyUl1CYVsOL4XBBpLBwlB9ecEEo" as string
+      const infuraKey = "8d94d36e8dbe42b9a0cc3131af87532e" as string
+
+      const options: Web3AuthOptions = {
+        clientId: clientId,
+        web3AuthNetwork: 'testnet',
+        chainConfig: {
+          chainNamespace: CHAIN_NAMESPACES.EIP155,
+          chainId: '0x1',
+          rpcTarget: `https://mainnet.infura.io/v3/${infuraKey}`
+        },
+        uiConfig: {
+          theme: 'dark',
+          loginMethodsOrder: ['google', 'facebook']
+        }
+      }
+
+      const modalConfig = {
+        [WALLET_ADAPTERS.TORUS_EVM]: {
+          label: 'torus',
+          showOnDesktop: true,
+          showOnModal: false
+        },
+        [WALLET_ADAPTERS.METAMASK]: {
+          label: 'metamask',
+          showOnDesktop: true,
+          showOnMobile: false
+        },
+        [WALLET_ADAPTERS.COINBASE]: {
+          label: 'coinbase',
+          showOnDesktop: true,
+          showOnMobile: false
+        } 
+      }
+
+      const openloginAdapter = new OpenloginAdapter({
+        loginSettings: {
+          mfaLevel: 'mandatory'
+        },
+        adapterSettings: {
+          uxMode: 'popup',
+          whiteLabel: {
+            name: 'Safe'
+          }
+        }
+      })
+
+      const web3AuthModalPack = new Web3AuthModalPack({
+        txServiceUrl: 'https://safe-transaction-goerli.safe.global'
+      })
+
+      await web3AuthModalPack.init({ options, adapters: [openloginAdapter], modalConfig })
+
+      web3AuthModalPack.subscribe(ADAPTER_EVENTS.CONNECTED, connectedHandler)
+
+      web3AuthModalPack.subscribe(ADAPTER_EVENTS.DISCONNECTED, disconnectedHandler)
+
+      setWeb3AuthModalPack(web3AuthModalPack)
+
+      return () => {
+        web3AuthModalPack.unsubscribe(ADAPTER_EVENTS.CONNECTED, connectedHandler)
+        web3AuthModalPack.unsubscribe(ADAPTER_EVENTS.DISCONNECTED, disconnectedHandler)
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
+    if (web3AuthModalPack && web3AuthModalPack.getProvider()) {
+      ;(async () => {
+        await login()
+      })()
+    }
+  }, [web3AuthModalPack])
+
+  const login = async () => {
+    if (!web3AuthModalPack) return
+
+    const signInInfo = await web3AuthModalPack.signIn()
+    console.log('SIGN IN RESPONSE: ', signInInfo)
+
+    const userInfo = await web3AuthModalPack.getUserInfo()
+    console.log('USER INFO: ', userInfo)
+
+    setSafeAuthSignInResponse(signInInfo)
+    setUserInfo(userInfo || undefined)
+    setProvider(web3AuthModalPack.getProvider() as SafeEventEmitterProvider)
+  }
+
+  const logout = async () => {
+    if (!web3AuthModalPack) return
+
+    await web3AuthModalPack.signOut()
+
+    setProvider(null)
+    setSafeAuthSignInResponse(null)
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+
+      <AppBar onLogin={login} onLogout={logout} userInfo={userInfo} isLoggedIn={!!provider}/>
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
+        <p className="fixed left-0 top-0 flex w-full justify-center lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+          
         </p>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
