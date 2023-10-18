@@ -100,7 +100,7 @@ contract PayPer is Ownable {
     }
 
     function deleteArticle(uint256 articleId) external {
-        delete articles[artliceId];
+        delete articles[articleId];
 
         emit ArticleDeleted(articleId);
     }
