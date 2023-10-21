@@ -4,9 +4,10 @@ module.exports = {
     es2021: true
   },
   extends: [
+    'next',
     'airbnb',
     'airbnb-typescript',
-    'plugin:react/recommended'
+    'airbnb/hooks',
   ],
   overrides: [
     {

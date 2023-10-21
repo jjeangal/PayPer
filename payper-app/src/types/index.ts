@@ -1,7 +1,11 @@
 import { UseWriteTransactionResponse } from "./use-write-transaction-response";
 import { Address } from "./address";
+import ArticleData from './article-data';
+import JournalistData from "./journalist-data";
 
-export {
+export type {
   UseWriteTransactionResponse,
-  Address
+  Address,
+  ArticleData,
+  JournalistData
 }

@@ -4,6 +4,8 @@ type Article @entity {
   freeContent: String!
   journalist: Bytes!
   encryptedUrl: String!
+  imageUrl: String!
+  videoUrl: String!
   totalRating: BigInt!
   amountOfRatings: BigInt!
   price: BigInt!
@@ -26,4 +28,11 @@ type Edition @entity {
   id: String!
   date: BigInt!
   articlesOfEdition: [BigInt!]!
+}
+
+type Purchase @entity {
+  id: String!
+  articleId: BigInt!
+  price: BigInt!
+  purchaser: Bytes!
 }
