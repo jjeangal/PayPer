@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PayPer is Ownable {
+contract PayPer {
     enum NewsType {
         POLITICS,
         ECONOMICS,
@@ -19,6 +18,8 @@ contract PayPer is Ownable {
         string name;
         string freeContent;
         string encryptedUrl;
+        string imageUrl;
+        string videoUrl;
         uint256 totalRating;
         uint256 amountOfRatings;
         uint256 price;
@@ -45,6 +46,8 @@ contract PayPer is Ownable {
         address journalist,
         string freeContent,
         string  url,
+        string  imageUrl,
+        string  videoUrl,
         uint256 price,
         uint256 date,
         uint256 newsType);
@@ -64,17 +67,19 @@ contract PayPer is Ownable {
     mapping(uint256 => Article) public articles;
     mapping(address => Journalist) public journalists;
     mapping(uint256 => Edition) public editions;
-    mapping(address => mapping(uint256 => bool)) purchases; //boolean record of if an address has purchased article with uint256 id
+    mapping(address => mapping(uint256 => bool)) public purchases; //boolean record of if an address has purchased article with uint256 id
 
     uint256 public currentArticleId = 0;
     uint256 public currentEditionId = 0;
 
-    constructor(address owner) Ownable(owner) {}
+    constructor(address owner) {}
 
     function postArticle(
         string memory name,
         string memory freeContent,
         string memory url,
+        string memory imageUrl,
+        string memory videoUrl,
         uint256 price,
         uint256 newsType
     ) external {
@@ -90,12 +95,14 @@ contract PayPer is Ownable {
             price: price,
             totalPaymentReceived: 0,
             date: block.timestamp,
-            newsType: NewsType(newsType)
+            newsType: NewsType(newsType),
+            imageUrl: imageUrl,
+            videoUrl: videoUrl
         });
 
         articles[currentArticleId] = article;
 
-        emit PostedArticle(article.id, article.name, article.journalist, article.freeContent, article.encryptedUrl, article.price, article.date, uint256(article.newsType));
+        emit PostedArticle(article.id, article.name, article.journalist, article.freeContent, article.encryptedUrl, article.imageUrl, article.videoUrl, article.price, article.date, uint256(article.newsType));
     }
 
     function createJournalist(string memory name, string memory description, address journalistAddress)
@@ -133,7 +140,10 @@ contract PayPer is Ownable {
 
         address payable journalist = payable(article.journalist);
         purchases[msg.sender][articleId] = true;
-
+        uint256 paymentsReceived = article.totalPaymentReceived;
+        paymentsReceived = paymentsReceived + msg.value;
+        article.totalPaymentReceived = paymentsReceived;
+        articles[articleId] = article;
         journalist.transfer(msg.value);
 
         emit ArticlePurchased(articleId, msg.sender, msg.value);

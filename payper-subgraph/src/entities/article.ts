@@ -19,6 +19,8 @@ export function createArticle(event: PostedArticle): Article {
     article.price = event.params.price;
     article.totalPaymentReceived = BIG_INT_ZERO;
     article.date = event.params.date;
+    article.imageUrl = event.params.imageUrl;
+    article.videoUrl = event.params.videoUrl;
     article.newsType = event.params.newsType;
   }
 
@@ -39,6 +41,8 @@ export function getArticle(id: string): Article {
     article.price = BIG_INT_ZERO;
     article.totalPaymentReceived = BIG_INT_ZERO;
     article.date = BIG_INT_ZERO;
+    article.imageUrl = "";
+    article.videoUrl = "";
     article.newsType = BIG_INT_ZERO;
   }
 

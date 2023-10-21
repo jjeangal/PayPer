@@ -6,9 +6,9 @@ dataSources:
     name: Contract
     network: mumbai
     source:
-      address: "0x186265192e01ffed6f844c947d4a528f6781b9ae"
+      address: "0xE3dD24b7336cc0EaAb56614cAEfa53f43CF9C739"
       abi: Contract
-      startBlock: 41241712
+      startBlock: 41477662
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -38,6 +38,6 @@ dataSources:
           handler: handleJounralistTipped
         - event: JournalistRated(address,uint256,uint256,uint256)
           handler: handleJournalistRated
-        - event: PostedArticle(uint256,string,address,string,string,uint256,uint256,uint256)
+        - event: PostedArticle(uint256,string,address,string,string,string,string,uint256,uint256,uint256)
           handler: handlePostedArticle
       file: Contract\Contract.wasm

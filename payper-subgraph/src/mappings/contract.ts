@@ -7,7 +7,6 @@ import {
   CreatedJournalist,
   JounralistTipped,
   JournalistRated,
-  OwnershipTransferred,
   PostedArticle
 } from "../../generated/Contract/Contract"
 import { } from "../../generated/schema"
@@ -15,12 +14,16 @@ import { createEdition } from "../entities/edition"
 import { createJournalist, getJournalist } from "../entities/journalist";
 import { createArticle, getArticle } from "../entities/article";
 import { BIG_INT_ONE } from "../lib/constants";
+import { createPurchase } from "../entities/purchases";
 
 export function handleArticlePurchased(event: ArticlePurchased): void {
   const article = getArticle(event.params.articleId.toHexString());
   article.totalPaymentReceived = article.totalPaymentReceived.plus(event.params.paidAmount);
 
   article.save()
+  
+  const purchase = createPurchase(event);
+  purchase.save()
 }
 
 export function handleArticleRated(event: ArticleRated): void {
@@ -60,4 +63,10 @@ export function handleJournalistRated(event: JournalistRated): void {
 export function handlePostedArticle(event: PostedArticle): void {
   const article = createArticle(event);
   article.save();
+
+  const journalist = getJournalist(event.params.journalist.toHexString());
+  let allArticles = journalist.allArticles;
+  allArticles.push(event.params.id);
+  journalist.allArticles = allArticles;
+  journalist.save()
 }

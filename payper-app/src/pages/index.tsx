@@ -3,15 +3,14 @@ import Container from '../components/container'
 import MoreArticles from '../components/more-articles'
 import HeroPost from '../components/hero-post'
 import Layout from '../components/layout'
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 import { useEffect, useState } from 'react'
 import { ArticleData } from '@/types'
 import { ConnectKitButton } from 'connectkit';
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/router'
 import { useAccount } from 'wagmi'
-
-
+import { useGetArticles } from '@/integrations/subgraph/hooks'
+import { useApolloClient } from '@/integrations/subgraph/client'
 
 export default function Index({ preview }: any) {
   const router = useRouter();
@@ -19,44 +18,19 @@ export default function Index({ preview }: any) {
   const [heroPost, setHeroPost] = useState<ArticleData>();
   const [moreArticles, setMoreArticles] = useState<ArticleData[]>([]);
   const { address, isDisconnected } = useAccount();
-  const APIURL = 'https://api.thegraph.com/subgraphs/name/efesozen7/payper-test-1'
+  const client = useApolloClient();
 
-  const tokensQuery = `
-  query GetArticles {
-    articles(first: 5) {
-      id
-      name
-      freeContent
-      journalist
-      encryptedUrl
-      price
-      date
-      newsType
-    }
+  const fetchArticles = async () => {
+    const articles = await useGetArticles({ client });
+    setArticles(articles);
+    setHeroPost(articles[0])
+    setMoreArticles(articles.slice(1))
   }
-`
-
-  const client = new ApolloClient({
-    uri: APIURL,
-    cache: new InMemoryCache(),
-  })
-
-  client
-    .query({
-      query: gql(tokensQuery),
-    })
-    .then((data) => setArticles(data.data.articles))
-    .catch((err) => {
-      console.log('Error fetching data: ', err)
-    })
 
   useEffect(() => {
-    if (articles) {
-      setHeroPost(articles[0])
-      setMoreArticles(articles.slice(1))
-      console.log("articles", articles)
-    }
-  }, [articles])
+    if (!client) return;
+    fetchArticles();
+  }, [client])
 
   return (
     <Layout preview={preview}>
