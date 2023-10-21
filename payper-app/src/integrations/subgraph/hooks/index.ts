@@ -1,7 +1,9 @@
 import useGetArticles from "./use-get-articles";
-import useGetArticleFromJournalist from "./use-get-articles-from-journalist";
+import useGetArticlesFromJournalist from "./use-get-articles-from-journalist";
+import useGetJournalist from './use-get-journalist';
 
 export {
   useGetArticles,
-  useGetArticleFromJournalist
+  useGetArticlesFromJournalist,
+  useGetJournalist,
 }
