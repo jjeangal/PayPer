@@ -7,14 +7,16 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { useGetArticlesFromJournalist, useGetGraphJournalist, useGetJournalist } from "@/integrations/payper-protocol/hooks/read";
-import { calculateDashboardInformation, calculateRating } from "@/helpers";
+import { calculateDashboardInformation, calculateRating } from "@/lib";
 import ArticlesList from "@/components/dashboard/articles-list";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
+import { useGetArticlesFromJournalist, useGetJournalist } from "@/integrations/subgraph/hooks";
+import { useApolloClient } from "@/integrations/subgraph/client";
 
 export default function DashboardPage() {
     const router = useRouter();
+    const client = useApolloClient();
     const [articlesInformation, setArticlesInformation] = useState<CalculateDashboardInformationResponse>();
     const [journalistRating, setJournalistRating] = useState<number>();
     const { address, isDisconnected } = useAccount();
@@ -23,13 +25,15 @@ export default function DashboardPage() {
         isLoading: areArticlesLoading,
         articles,
     } = useGetArticlesFromJournalist({
+        client,
         journalistId: address?.toString() || ''
     });
 
     const {
         isLoading: isJournalistLoading,
         journalist,
-    } = useGetGraphJournalist({
+    } = useGetJournalist({
+        client,
         journalistId: address || '' as Address
     });
 

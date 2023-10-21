@@ -1,6 +1,5 @@
 import { ArticleData } from "@/types";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { calculateRating, weiToEth } from "@/helpers";
+import { calculateRating } from "@/lib";
 
 
 interface ArticlesListProps {
