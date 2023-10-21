@@ -4,15 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Contract
-    network: mumbai
+    network: goerli
     source:
-<<<<<<< Updated upstream
-      address: "0xE3dD24b7336cc0EaAb56614cAEfa53f43CF9C739"
-=======
-      address: "0x91a900d0040481bef10c2C27cb67FaB736c3bA36"
->>>>>>> Stashed changes
+      address: "0x2270d0cd49dac97e663e0bcb448d9b079817b878"
       abi: Contract
-      startBlock: 41477662
+      startBlock: 9907132
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
