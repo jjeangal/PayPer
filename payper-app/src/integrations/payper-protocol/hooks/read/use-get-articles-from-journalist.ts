@@ -1,0 +1,43 @@
+
+import { ArticleData } from '@/types';
+  import { client } from '.';
+  import {  gql } from "@apollo/client";
+
+  /**
+  * Fetches the information about the articles of a journalist
+  */
+  const useGetArticlesFromJournalist = async (journalistId: number): Promise<ArticleData[]> => {
+      
+    const result = await client.query({
+        query: gql`
+          query {
+            articles(where: {journalist: "${journalistId}"}) {
+              id
+              name
+              freeContent
+              journalist
+            }
+          }
+        `,
+      });
+      const data = result.data.articles;
+
+    const articles: ArticleData[] = data ? data.map((articleData: any) => ({
+      id: articleData.id,
+      journalist: articleData.journalist,
+      name: articleData.name,
+      freeContent: articleData.freeContent,
+      encryptedUrl: articleData.encryptedUrl,
+      totalRating: articleData.totalRating,
+      amountOfRatings: articleData.amountOfRatings,
+      price: articleData.price,
+      totalPaymentReceived: articleData.totalPaymentReceived,
+      date: articleData.date,
+      newsType: articleData.newsType,
+    })) : [];
+  
+    return articles;
+  };
+  
+  export default useGetArticlesFromJournalist;
+  
