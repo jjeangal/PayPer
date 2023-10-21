@@ -6,7 +6,7 @@ import { ArticleData } from '@/types';
   /**
   * Fetches the information about the articles of a journalist
   */
-  const useGetArticleFromJournalist = async (journalistId: number): ArticleData[] => {
+  const useGetArticlesFromJournalist = async (journalistId: number): Promise<ArticleData[]> => {
       
     const result = await client.query({
         query: gql`
@@ -21,6 +21,7 @@ import { ArticleData } from '@/types';
         `,
       });
       const data = result.data.articles;
+
     const articles: ArticleData[] = data ? data.map((articleData: any) => ({
       id: articleData.id,
       journalist: articleData.journalist,
@@ -38,5 +39,5 @@ import { ArticleData } from '@/types';
     return articles;
   };
   
-  export default useGetArticleFromJournalist;
+  export default useGetArticlesFromJournalist;
   
