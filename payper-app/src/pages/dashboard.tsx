@@ -1,5 +1,5 @@
-import { ArticleData } from "@/types";
-import { useState } from "react";
+import { ArticleData, CalculateDashboardInformationResponse } from "@/types";
+import { useEffect, useState } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs"
 import {
     Card,
@@ -8,8 +8,36 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { useGetArticlesFromJournalist } from "@/integrations/payper-protocol/hooks/read";
+import { calculateDashboardInformation } from "@/helpers";
+import ArticlesList from "@/components/dashboard/articles-list";
 
 export default function DashboardPage() {
+    const [articlesInformation, setArticlesInformation] = useState<CalculateDashboardInformationResponse>();
+
+    const {
+        isLoading,
+        articles,
+    } = useGetArticlesFromJournalist({
+        journalistId: '0x30D38078D6117285d6730F971d3F50A9004a575B'
+    });
+
+    useEffect(() => {
+        if (!isLoading) {
+            const articlesInformation = calculateDashboardInformation({
+                articles,
+            })            
+            setArticlesInformation(articlesInformation);
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        const dashboardInformation = calculateDashboardInformation({
+            articles,
+        })            
+        setArticlesInformation(dashboardInformation);
+    }, []);
+
     return (
         <>
             <div className="hidden flex-col md:flex">
@@ -19,7 +47,7 @@ export default function DashboardPage() {
                     </div>
                     <Tabs defaultValue="overview" className="space-y-4">
                         <TabsContent value="overview" className="space-y-4">
-                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                                 <Card>
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium">
@@ -39,13 +67,17 @@ export default function DashboardPage() {
                                         </svg>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="text-2xl font-bold">$45,231.89</div>
+                                        {isLoading ? (
+                                            <p>Loading...</p>
+                                        ) : (
+                                            <div className="text-2xl font-bold">${articlesInformation?.totalRevenue.toString() || '0'} ETH</div>
+                                        )}
                                     </CardContent>
                                 </Card>
                                 <Card>
                                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                         <CardTitle className="text-sm font-medium">
-                                            Rating
+                                            Journalist Rating
                                         </CardTitle>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +95,11 @@ export default function DashboardPage() {
                                         </svg>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="text-2xl font-bold">+2350</div>
+                                        {isLoading ? (
+                                            <p>Loading...</p>
+                                        ) : (
+                                            <div className="text-2xl font-bold">5</div>
+                                        )}
                                     </CardContent>
                                 </Card>
                                 <Card>
@@ -84,28 +120,49 @@ export default function DashboardPage() {
                                         </svg>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="text-2xl font-bold">+12,234</div>
+                                        {isLoading ? (
+                                            <p>Loading...</p>
+                                        ) : (
+                                            <div className="text-2xl font-bold">{articles.length}</div>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                                <Card>
+                                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                        <CardTitle className="text-sm font-medium">Average Article Rating</CardTitle>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            className="h-4 w-4 text-muted-foreground"
+                                        >
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                            <circle cx="9" cy="7" r="4" />
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                                        </svg>
+                                    </CardHeader>
+                                    <CardContent>
+                                        {isLoading ? (
+                                            <p>Loading...</p>
+                                        ) : (
+                                            <div className="text-2xl font-bold">{articlesInformation?.averageArticleRating.toString() || '0'}</div>
+                                        )}
                                     </CardContent>
                                 </Card>
                             </div>
-                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                                <Card className="col-span-4">
-                                    <CardHeader>
-                                        <CardTitle>Overview</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="pl-2">
-                                        {/* <Overview /> */}
-                                    </CardContent>
-                                </Card>
+                            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                                 <Card className="col-span-3">
                                     <CardHeader>
-                                        <CardTitle>Recent Sales</CardTitle>
-                                        <CardDescription>
-                                            You made 265 sales this month.
-                                        </CardDescription>
+                                        <CardTitle>Your Articles</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        {/* <RecentSales /> */}
+                                        <ArticlesList 
+                                            articles={articles}
+                                        />
                                     </CardContent>
                                 </Card>
                             </div>

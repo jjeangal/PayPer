@@ -1,42 +1,79 @@
 
-import { ArticleData } from '@/types';
   import { client } from '.';
   import {  gql } from "@apollo/client";
+import { useEffect, useState } from 'react';
+import {Address, ArticleData} from '@/types';
+
+interface UseGetArticlesFromJournalistParams {
+  journalistId: Address;
+}
+
+interface UseGetArticlesFromJournalistResponse {
+  isLoading: Boolean;
+  articles: ArticleData[];
+}
 
   /**
   * Fetches the information about the articles of a journalist
   */
-  const useGetArticlesFromJournalist = async (journalistId: number): Promise<ArticleData[]> => {
-      
-    const result = await client.query({
-        query: gql`
-          query {
-            articles(where: {journalist: "${journalistId}"}) {
-              id
-              name
-              freeContent
-              journalist
-            }
-          }
-        `,
-      });
-      const data = result.data.articles;
+  const useGetArticlesFromJournalist = ({
+    journalistId,
+  }: UseGetArticlesFromJournalistParams): UseGetArticlesFromJournalistResponse => {
+    const [articles, setArticles] = useState<ArticleData[]>([]);
+    const [isLoading, setIsLoading] = useState<Boolean>(true);
 
-    const articles: ArticleData[] = data ? data.map((articleData: any) => ({
-      id: articleData.id,
-      journalist: articleData.journalist,
-      name: articleData.name,
-      freeContent: articleData.freeContent,
-      encryptedUrl: articleData.encryptedUrl,
-      totalRating: articleData.totalRating,
-      amountOfRatings: articleData.amountOfRatings,
-      price: articleData.price,
-      totalPaymentReceived: articleData.totalPaymentReceived,
-      date: articleData.date,
-      newsType: articleData.newsType,
-    })) : [];
-  
-    return articles;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await client.query({
+          query: gql`
+            query {
+              articles(where: {journalist: "${journalistId}"}) {
+                id
+                name
+                freeContent
+                encryptedUrl
+                totalRating
+                amountOfRatings
+                price
+                totalPaymentReceived
+                date
+                newsType
+              }
+            }
+          `,
+        });
+        const data = result.data.articles;
+
+        const responseArticles: ArticleData[] = data 
+          ? data.map((articleData: any) => ({
+            id: articleData.id,
+            name: articleData.name,
+            freeContent: articleData.freeContent,
+            encryptedUrl: articleData.encryptedUrl,
+            totalRating: articleData.totalRating,
+            amountOfRatings: articleData.amountOfRatings,
+            price: articleData.price,
+            totalPaymentReceived: articleData.totalPaymentReceived,
+            date: articleData.date,
+            newsType: articleData.newsType,
+          })) 
+          : [];
+        setArticles(responseArticles);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+      
+    return {
+      isLoading,
+      articles,
+    };
   };
   
   export default useGetArticlesFromJournalist;
