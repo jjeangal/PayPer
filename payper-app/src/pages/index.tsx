@@ -8,9 +8,12 @@ import { useEffect, useState } from 'react'
 import { ArticleData } from '@/types'
 import { ConnectKitButton } from 'connectkit';
 import { Button } from "@/components/ui/button"
+import { useRouter } from 'next/router'
+
 
 
 export default function Index({ preview }: any) {
+  const router = useRouter();
   const [articles, setArticles] = useState<ArticleData[]>();
   const [heroPost, setHeroPost] = useState<ArticleData>();
   const [moreArticles, setMoreArticles] = useState<ArticleData[]>([]);
@@ -67,6 +70,9 @@ export default function Index({ preview }: any) {
           </h1>
           <div className="flex md:justify-between space-x-10">
             <Button>+ Create Article</Button>
+            <Button onClick={() => router.push('/dashboard')}>
+              My Dashboard
+            </Button>
             <ConnectKitButton />
           </div>
         </section>
