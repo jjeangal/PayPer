@@ -18,7 +18,7 @@ import { BIG_INT_ONE } from "../lib/constants";
 import { createPurchase } from "../entities/purchases";
 
 export function handleArticlePurchased(event: ArticlePurchased): void {
-  const article = getArticle(event.params.articleId.toHexString());
+  const article = getArticle(event.params.articleId.toString());
   article.totalPaymentReceived = article.totalPaymentReceived.plus(event.params.paidAmount);
 
   article.save()
@@ -28,7 +28,7 @@ export function handleArticlePurchased(event: ArticlePurchased): void {
 }
 
 export function handleArticleRated(event: ArticleRated): void {
-  const article = getArticle(event.params.articleId.toHexString());
+  const article = getArticle(event.params.articleId.toString());
   article.amountOfRatings = article.amountOfRatings.plus(BIG_INT_ONE);
   article.totalRating = article.totalRating.plus(event.params.rating);
 
