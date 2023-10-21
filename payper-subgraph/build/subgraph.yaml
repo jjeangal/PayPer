@@ -6,7 +6,11 @@ dataSources:
     name: Contract
     network: mumbai
     source:
+<<<<<<< Updated upstream
       address: "0xE3dD24b7336cc0EaAb56614cAEfa53f43CF9C739"
+=======
+      address: "0x91a900d0040481bef10c2C27cb67FaB736c3bA36"
+>>>>>>> Stashed changes
       abi: Contract
       startBlock: 41477662
     mapping:
@@ -40,4 +44,6 @@ dataSources:
           handler: handleJournalistRated
         - event: PostedArticle(uint256,string,address,string,string,string,string,uint256,uint256,uint256)
           handler: handlePostedArticle
+        - event: ArticleDeleted(uint256)
+          handler: handleArticleDeleted
       file: Contract\Contract.wasm

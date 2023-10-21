@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { store } from "@graphprotocol/graph-ts"
 import {
   Contract,
   ArticlePurchased,
@@ -7,7 +7,8 @@ import {
   CreatedJournalist,
   JounralistTipped,
   JournalistRated,
-  PostedArticle
+  PostedArticle,
+  ArticleDeleted
 } from "../../generated/Contract/Contract"
 import { } from "../../generated/schema"
 import { createEdition } from "../entities/edition"
@@ -69,4 +70,8 @@ export function handlePostedArticle(event: PostedArticle): void {
   allArticles.push(event.params.id);
   journalist.allArticles = allArticles;
   journalist.save()
+}
+
+export function handleArticleDeleted(event: ArticleDeleted ): void {
+  store.remove("Article", event.params.articleId.toString());
 }
