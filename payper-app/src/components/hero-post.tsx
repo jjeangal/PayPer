@@ -24,8 +24,6 @@ export default function HeroPost({
 
   const readableDate = new Date(Number(date)).toISOString();
 
-  console.log("date", readableDate)
-
   return (
     <section>
       <div className="mb-8 md:mb-16">

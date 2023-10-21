@@ -2,10 +2,10 @@
   import { client } from '.';
   import {  gql } from "@apollo/client";
 import { useEffect, useState } from 'react';
-import {Address, ArticleData} from '@/types';
+import {ArticleData} from '@/types';
 
 interface UseGetArticlesFromJournalistParams {
-  journalistId: Address;
+  journalistId: string;
 }
 
 interface UseGetArticlesFromJournalistResponse {

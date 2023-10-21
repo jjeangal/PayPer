@@ -9,6 +9,7 @@ import { ArticleData } from '@/types'
 import { ConnectKitButton } from 'connectkit';
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/router'
+import { useAccount } from 'wagmi'
 
 
 
@@ -17,6 +18,7 @@ export default function Index({ preview }: any) {
   const [articles, setArticles] = useState<ArticleData[]>();
   const [heroPost, setHeroPost] = useState<ArticleData>();
   const [moreArticles, setMoreArticles] = useState<ArticleData[]>([]);
+  const { address, isDisconnected } = useAccount();
   const APIURL = 'https://api.thegraph.com/subgraphs/name/efesozen7/payper-test-1'
 
   const tokensQuery = `
@@ -56,8 +58,6 @@ export default function Index({ preview }: any) {
     }
   }, [articles])
 
-  console.log(heroPost)
-
   return (
     <Layout preview={preview}>
       <Head>
@@ -70,9 +70,11 @@ export default function Index({ preview }: any) {
           </h1>
           <div className="flex md:justify-between space-x-10">
             <Button>+ Create Article</Button>
-            <Button onClick={() => router.push('/dashboard')}>
-              My Dashboard
-            </Button>
+            {(address && !isDisconnected) && (
+              <Button onClick={() => router.push('/dashboard')}>
+                My Dashboard
+              </Button>
+            )}
             <ConnectKitButton />
           </div>
         </section>

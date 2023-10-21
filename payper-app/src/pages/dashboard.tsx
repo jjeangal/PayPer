@@ -1,42 +1,63 @@
-import { ArticleData, CalculateDashboardInformationResponse } from "@/types";
+import { Address, ArticleData, CalculateDashboardInformationResponse } from "@/types";
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs"
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { useGetArticlesFromJournalist } from "@/integrations/payper-protocol/hooks/read";
-import { calculateDashboardInformation } from "@/helpers";
+import { useGetArticlesFromJournalist, useGetGraphJournalist, useGetJournalist } from "@/integrations/payper-protocol/hooks/read";
+import { calculateDashboardInformation, calculateRating } from "@/helpers";
 import ArticlesList from "@/components/dashboard/articles-list";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/router";
 
 export default function DashboardPage() {
+    const router = useRouter();
     const [articlesInformation, setArticlesInformation] = useState<CalculateDashboardInformationResponse>();
+    const [journalistRating, setJournalistRating] = useState<number>();
+    const { address, isDisconnected } = useAccount();
 
     const {
-        isLoading,
+        isLoading: areArticlesLoading,
         articles,
     } = useGetArticlesFromJournalist({
-        journalistId: '0x30D38078D6117285d6730F971d3F50A9004a575B'
+        journalistId: address?.toString() || ''
     });
 
-    useEffect(() => {
-        if (!isLoading) {
-            const articlesInformation = calculateDashboardInformation({
-                articles,
-            })            
-            setArticlesInformation(articlesInformation);
-        }
-    }, [isLoading]);
+    const {
+        isLoading: isJournalistLoading,
+        journalist,
+    } = useGetGraphJournalist({
+        journalistId: address || '' as Address
+    });
+
 
     useEffect(() => {
-        const dashboardInformation = calculateDashboardInformation({
-            articles,
-        })            
-        setArticlesInformation(dashboardInformation);
+        if (!address || isDisconnected) {
+            router.push('/')
+        }
     }, []);
+
+    useEffect(() => {
+        if (!isJournalistLoading) {
+            const rating = calculateRating({
+                totalRating: journalist?.totalRating || BigInt(0),
+                amountOfRatings: journalist?.amountOfRatings || BigInt(0),
+            })
+            setJournalistRating(rating);
+        }
+    }, [isJournalistLoading]);
+
+    useEffect(() => {
+        if (!areArticlesLoading) {
+            const articlesInformation = calculateDashboardInformation({
+                articles,
+            })
+            setArticlesInformation(articlesInformation);
+        }
+    }, [areArticlesLoading]);
 
     return (
         <>
@@ -67,7 +88,7 @@ export default function DashboardPage() {
                                         </svg>
                                     </CardHeader>
                                     <CardContent>
-                                        {isLoading ? (
+                                        {areArticlesLoading ? (
                                             <p>Loading...</p>
                                         ) : (
                                             <div className="text-2xl font-bold">${articlesInformation?.totalRevenue.toString() || '0'} ETH</div>
@@ -95,10 +116,10 @@ export default function DashboardPage() {
                                         </svg>
                                     </CardHeader>
                                     <CardContent>
-                                        {isLoading ? (
+                                        {isJournalistLoading ? (
                                             <p>Loading...</p>
                                         ) : (
-                                            <div className="text-2xl font-bold">5</div>
+                                            <div className="text-2xl font-bold">{journalistRating}</div>
                                         )}
                                     </CardContent>
                                 </Card>
@@ -120,7 +141,7 @@ export default function DashboardPage() {
                                         </svg>
                                     </CardHeader>
                                     <CardContent>
-                                        {isLoading ? (
+                                        {areArticlesLoading ? (
                                             <p>Loading...</p>
                                         ) : (
                                             <div className="text-2xl font-bold">{articles.length}</div>
@@ -146,7 +167,7 @@ export default function DashboardPage() {
                                         </svg>
                                     </CardHeader>
                                     <CardContent>
-                                        {isLoading ? (
+                                        {areArticlesLoading ? (
                                             <p>Loading...</p>
                                         ) : (
                                             <div className="text-2xl font-bold">{articlesInformation?.averageArticleRating.toString() || '0'}</div>
@@ -160,9 +181,14 @@ export default function DashboardPage() {
                                         <CardTitle>Your Articles</CardTitle>
                                     </CardHeader>
                                     <CardContent>
-                                        <ArticlesList 
-                                            articles={articles}
-                                        />
+                                        {articles.length
+                                            ? (
+                                                <ArticlesList
+                                                    articles={articles}
+                                                />
+                                            ) : (
+                                                <p>You haven't posted any articles yet.</p>
+                                            )}
                                     </CardContent>
                                 </Card>
                             </div>

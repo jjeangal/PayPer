@@ -5,6 +5,7 @@ import useGetCurrentArticleId from "./use-get-current-article-id";
 import useGetJournalist from "./use-get-journalist";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import useGetArticlesFromJournalist from './use-get-articles-from-journalist';
+import useGetGraphJournalist from './use-get-graph-journalist';
 
 const client = new ApolloClient({
   uri: subgraphUrl,
@@ -19,4 +20,5 @@ export {
   useGetCurrentArticleId,
   useGetAllArticles,
   useGetArticlesFromJournalist,
+  useGetGraphJournalist,
 }
