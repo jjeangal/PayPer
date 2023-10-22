@@ -3,7 +3,7 @@ import DateComponent from './date'
 import CoverImage from './cover-image'
 import Link from 'next/link'
 import { Address } from '@/types';
-import newsTypeEnum from '@/lib/news-value';
+import { newsTypeEnum } from '@/lib/';
 
 interface HeroPostProps {
   id: number;

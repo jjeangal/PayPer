@@ -31,7 +31,10 @@ useEffect(() => {
           query {
             journalists(where: {id: "${journalistId}"}) {
               id
-              name
+              name,
+              description,
+              totalRating,
+              amountOfRatings,
             }
           }
         `,
