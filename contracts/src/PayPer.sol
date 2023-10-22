@@ -63,7 +63,8 @@ contract PayPer {
     event JounralistTipped(address journalist, uint256 tipAmount, string message);
 
     event JournalistRated(address journalist, uint256 rating, uint256 totalRating, uint256 amountOfRatings);
-    
+    event ArticleDeleted(uint256 articleId);
+
     mapping(uint256 => Article) public articles;
     mapping(address => Journalist) public journalists;
     mapping(uint256 => Edition) public editions;
@@ -103,6 +104,12 @@ contract PayPer {
         articles[currentArticleId] = article;
 
         emit PostedArticle(article.id, article.name, article.journalist, article.freeContent, article.encryptedUrl, article.imageUrl, article.videoUrl, article.price, article.date, uint256(article.newsType));
+    }
+
+    function deleteArticle(uint256 articleId) external {
+        delete articles[articleId];
+
+        emit ArticleDeleted(articleId);
     }
 
     function createJournalist(string memory name, string memory description, address journalistAddress)

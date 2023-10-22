@@ -40,4 +40,6 @@ dataSources:
           handler: handleJournalistRated
         - event: PostedArticle(uint256,string,address,string,string,string,string,uint256,uint256,uint256)
           handler: handlePostedArticle
+        - event: ArticleDeleted(uint256)
+          handler: handleArticleDeleted
       file: Contract\Contract.wasm

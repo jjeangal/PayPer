@@ -14,6 +14,19 @@
         "internalType": "uint256",
         "name": "articleId",
         "type": "uint256"
+      }
+    ],
+    "name": "ArticleDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "articleId",
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -317,6 +330,15 @@
     "name": "currentEditionId",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "articleId", "type": "uint256" }
+    ],
+    "name": "deleteArticle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

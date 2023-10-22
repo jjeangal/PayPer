@@ -6,10 +6,8 @@ import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 
 export function createArticle(event: PostedArticle): Article {
   let id = event.params.id.toString()
-  let article = Article.load(id);
 
-  if (article == null) {
-    article = new Article(id);
+    let article = new Article(id);
     article.journalist = event.params.journalist;
     article.name = event.params.name;
     article.freeContent = event.params.freeContent;
@@ -22,7 +20,7 @@ export function createArticle(event: PostedArticle): Article {
     article.imageUrl = event.params.imageUrl;
     article.videoUrl = event.params.videoUrl;
     article.newsType = event.params.newsType;
-  }
+  
 
   return article as Article;
 }
