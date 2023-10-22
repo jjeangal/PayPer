@@ -7,14 +7,13 @@ import { newsTypeEnum } from '@/lib/';
 import { useParams } from 'next/navigation';
 import { useCheckPurchaseExists, useGetArticleById } from '@/integrations/subgraph/hooks';
 import { useApolloClient } from '@/integrations/subgraph/client';
-import { use, useCallback, useEffect, useEffect, useState } from 'react';
+import { use, useCallback, useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Document, Page } from 'react-pdf'
 import { useAccount } from 'wagmi';
 import { Button } from "@/components/ui/button"
 import { useBuyArticle } from '@/integrations/payper-protocol/hooks/write';
 
-import { Button } from '@/components/ui/button';
 import { RateArticle } from '@/components/rate';
 import { useRateArticle } from '@/integrations/payper-protocol/hooks/write';
 import { UseRateArticleParams } from '@/integrations/payper-protocol/hooks/write/use-rate-article';
