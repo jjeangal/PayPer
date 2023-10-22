@@ -8,7 +8,7 @@ import payperAbi from '../../abis/payper-abi';
 import { payperAddress } from '../../config';
 import { UseWriteTransactionResponse } from '../../../../types';
 
-interface UseRateArticleParams {
+export interface UseRateArticleParams {
   articleId: bigint;
   rating: bigint;
 }
