@@ -20,7 +20,6 @@ const useBuyArticle = ({
   articleId,
   price,
 }: UseBuyArticleParams): UseWriteTransactionResponse => {
-  console.log("PRICE", price)
   const {
     config,
     error: prepareError,
@@ -39,8 +38,6 @@ const useBuyArticle = ({
     error,
     isError,
   } = useContractWrite(config);
-
-  console.log(error);
 
   const {
     isLoading,

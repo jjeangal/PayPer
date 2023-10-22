@@ -20,7 +20,6 @@ function calculateDashboardInformation({
     ? articleRatingSum / BigInt(articles.length)
     : BigInt(0);
   const articleRevenues = articles.map(article => article.totalPaymentReceived);
-  console.log('articleRevenues', articleRevenues);
   const totalRevenueInWei = articleRevenues.reduce((sum, articleRevenue) => sum + BigInt(articleRevenue), BigInt(0));
   const totalEthRevenue = web3.utils.fromWei(totalRevenueInWei, 'ether');
 
