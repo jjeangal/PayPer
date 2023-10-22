@@ -12,6 +12,7 @@ interface ArticleData {
   totalPaymentReceived: bigint;
   date: bigint;
   newsType: number;
+  imageUrl: string;
 }
 
 export default ArticleData;
