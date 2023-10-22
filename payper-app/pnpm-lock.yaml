@@ -14,18 +14,27 @@ dependencies:
   '@graphprotocol/graph-ts':
     specifier: ^0.31.0
     version: 0.31.0
+  '@radix-ui/react-avatar':
+    specifier: ^1.0.4
+    version: 1.0.4(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
+  '@radix-ui/react-icons':
+    specifier: ^1.3.0
+    version: 1.3.0(react@18.2.0)
   '@pushprotocol/restapi':
     specifier: ^1.4.28
     version: 1.4.28(@types/react@18.2.28)(ethers@5.7.2)(react@18.2.0)(typescript@5.2.2)(zod@3.22.4)
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.2.28)(react@18.2.0)
+  '@radix-ui/react-tabs':
+    specifier: ^1.0.4
+    version: 1.0.4(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
   '@safe-global/api-kit':
     specifier: ^1.3.1
     version: 1.3.1
   '@safe-global/auth-kit':
     specifier: ^1.2.1
-    version: 1.2.1(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
+    version: 1.2.1(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/types@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
   '@safe-global/protocol-kit':
     specifier: ^1.3.0
     version: 1.3.0(ethers@5.7.2)
@@ -35,18 +44,24 @@ dependencies:
   '@wagmi/core':
     specifier: ^1.4.3
     version: 1.4.3(@types/react@18.2.28)(react@18.2.0)(typescript@5.2.2)(viem@1.16.5)(zod@3.22.4)
+  '@walletconnect/types':
+    specifier: ^2.10.2
+    version: 2.10.2
   '@web3auth/base':
     specifier: ^7.0.4
     version: 7.0.4(@babel/runtime@7.23.2)
   '@web3auth/modal':
     specifier: ^7.0.5
-    version: 7.0.5(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/sign-client@2.10.1)(@walletconnect/utils@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
+    version: 7.0.5(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/sign-client@2.10.1)(@walletconnect/types@2.10.2)(@walletconnect/utils@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
   '@web3auth/openlogin-adapter':
     specifier: ^7.0.4
     version: 7.0.4(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)
   '@web3auth/web3auth-wagmi-connector':
     specifier: ^5.0.1
     version: 5.0.1(@wagmi/core@1.4.3)(@web3auth/base@7.0.4)(@web3auth/modal@7.0.5)(@web3auth/no-modal@7.0.4)(@web3auth/openlogin-adapter@7.0.4)(viem@1.16.5)
+  bignumber.js:
+    specifier: ^9.1.2
+    version: 9.1.2
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -4201,55 +4216,6 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: false
 
-  /@pushprotocol/restapi@1.4.28(@types/react@18.2.28)(ethers@5.7.2)(react@18.2.0)(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-2T8isEXx3P95F8kVWCxmH3+9eJY+gExm8wXibsP6wO2UrKp8U+hVo1Iu4LO4mhtkoO1K8LB1EIoszeBCOPfFkw==}
-    peerDependencies:
-      ethers: ^5.6.8
-    dependencies:
-      '@ambire/signature-validator': 1.3.1
-      '@metamask/eth-sig-util': 5.1.0
-      '@pushprotocol/socket': 0.5.2(ethers@5.7.2)
-      axios: 0.27.2
-      buffer: 6.0.3
-      crypto-js: 4.1.1
-      ethers: 5.7.2
-      immer: 10.0.3
-      joi: 17.11.0
-      livepeer: 2.9.2(@types/react@18.2.28)(immer@10.0.3)(react@18.2.0)
-      openpgp: 5.10.2
-      simple-peer: 9.11.1
-      socket.io-client: 4.7.2
-      tslib: 2.6.2
-      unique-names-generator: 4.7.1
-      uuid: 9.0.1
-      video-stream-merger: 4.0.1
-      viem: 1.16.5(typescript@5.2.2)(zod@3.22.4)
-    transitivePeerDependencies:
-      - '@types/react'
-      - bufferutil
-      - debug
-      - encoding
-      - react
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@pushprotocol/socket@0.5.2(ethers@5.7.2):
-    resolution: {integrity: sha512-lVGMT3q8T5by6qwAhQ+zIeE/yv7oUC9eIlFux8M7WaKu/ArLBrrojD5REbr9QXXwpJIP3Q8GJUKyClZl4uGsJw==}
-    peerDependencies:
-      ethers: ^5.6.8
-    dependencies:
-      ethers: 5.7.2
-      socket.io-client: 4.7.2
-      tslib: 2.6.2
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: false
-
   /@radix-ui/react-compose-refs@1.0.1(@types/react@18.2.28)(react@18.2.0):
     resolution: {integrity: sha512-fDSBgd44FKHa1FRMU59qBMPFcl2PZE+2nmqunj+BWFyYYjnhIDWL2ItDs3rrbJDQOtzt5nIebLCQc4QRfz6LJw==}
     peerDependencies:
@@ -4264,6 +4230,129 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@radix-ui/react-context@1.0.1(@types/react@18.2.28)(react@18.2.0):
+    resolution: {integrity: sha512-ebbrdFoYTcuZ0v4wG5tedGnp9tzcV8awzsxYph7gXUyvnNLuTIcCk1q17JEbnVhXAKG9oX3KtchwiMIAYp9NLg==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@types/react': 18.2.28
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-direction@1.0.1(@types/react@18.2.28)(react@18.2.0):
+    resolution: {integrity: sha512-RXcvnXgyvYvBEOhCBuddKecVkoMiI10Jcm5cTI7abJRAHYfFxeu+FBQs/DvdxSYucxR5mna0dNsL6QFlds5TMA==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@types/react': 18.2.28
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-icons@1.3.0(react@18.2.0):
+    resolution: {integrity: sha512-jQxj/0LKgp+j9BiTXz3O3sgs26RNet2iLWmsPyRz2SIcR4q/4SbazXfnYwbAr+vLYKSfc7qxzyGQA1HLlYiuNw==}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-id@1.0.1(@types/react@18.2.28)(react@18.2.0):
+    resolution: {integrity: sha512-tI7sT/kqYp8p96yGWY1OAnLHrqDgzHefRBKQ2YAkBS5ja7QLcZ9Z/uY7bEjPUatf8RomoXM8/1sMj1IJaE5UzQ==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@types/react': 18.2.28
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-presence@1.0.1(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-UXLW4UAbIY5ZjcvzjfRFo5gxva8QirC9hF7wRE4U5gz+TP0DbRk+//qyuAQ1McDxBt1xNMBTaciFGvEmJvAZCg==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@types/react': 18.2.28
+      '@types/react-dom': 18.2.13
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@radix-ui/react-primitive@1.0.3(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-yi58uVyoAcK/Nq1inRY56ZSjKypBNKTa/1mcL8qdl6oJeEaDbOldlzrGn7P6Q3Id5d+SYNGc5AJgc4vGhjs5+g==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@radix-ui/react-slot': 1.0.2(@types/react@18.2.28)(react@18.2.0)
+      '@types/react': 18.2.28
+      '@types/react-dom': 18.2.13
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@radix-ui/react-roving-focus@1.0.4(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-2mUg5Mgcu001VkGy+FfzZyzbmuUWzgWkj3rvv4yu+mLw03+mTzbxZHvfcGyFp2b8EkQeMkpRQ5FiA2Vr2O6TeQ==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@radix-ui/primitive': 1.0.1
+      '@radix-ui/react-collection': 1.0.3(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-context': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-direction': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-id': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-use-controllable-state': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@types/react': 18.2.28
+      '@types/react-dom': 18.2.13
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@radix-ui/react-slot@1.0.2(@types/react@18.2.28)(react@18.2.0):
     resolution: {integrity: sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==}
     peerDependencies:
@@ -4275,6 +4364,77 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.2
       '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@types/react': 18.2.28
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-tabs@1.0.4(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-egZfYY/+wRNCflXNHx+dePvnz9FbmssDTJBtgRfDY7e8SE5oIo3Py2eCB1ckAbh1Q7cQ/6yJZThJ++sgbxibog==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@radix-ui/primitive': 1.0.1
+      '@radix-ui/react-context': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-direction': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-id': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@radix-ui/react-presence': 1.0.1(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-roving-focus': 1.0.4(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-use-controllable-state': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@types/react': 18.2.28
+      '@types/react-dom': 18.2.13
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@radix-ui/react-use-callback-ref@1.0.1(@types/react@18.2.28)(react@18.2.0):
+    resolution: {integrity: sha512-D94LjX4Sp0xJFVaoQOd3OO9k7tpBYNOXdVhkltUbGv2Qb9OXdrg/CpsjlZv7ia14Sylv398LswWBVVu5nqKzAQ==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@types/react': 18.2.28
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-use-controllable-state@1.0.1(@types/react@18.2.28)(react@18.2.0):
+    resolution: {integrity: sha512-Svl5GY5FQeN758fWKrjM6Qb7asvXeiZltlT4U2gVfl8Gx5UAv2sMR0LWo8yhsIZh2oQ0eFdZ59aoOOMV7b47VA==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.2.28)(react@18.2.0)
+      '@types/react': 18.2.28
+      react: 18.2.0
+    dev: false
+
+  /@radix-ui/react-use-layout-effect@1.0.1(@types/react@18.2.28)(react@18.2.0):
+    resolution: {integrity: sha512-v/5RegiJWYdoCvMnITBkNNx6bCj20fiaJnWtRkU18yITptraXjffz5Qbn05uOiQnOvi+dbkznkoaMltz1GnszQ==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
       '@types/react': 18.2.28
       react: 18.2.0
     dev: false
@@ -4511,14 +4671,14 @@ packages:
       - supports-color
     dev: false
 
-  /@safe-global/auth-kit@1.2.1(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0):
+  /@safe-global/auth-kit@1.2.1(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/types@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0):
     resolution: {integrity: sha512-qt88FbKuSSXaWMwAcSkceutXCk38l0hjI845Ia5hzvpsExjIq5OvuH2h9iZdSSb4j67jALClgcCm3ZCPsTUrtQ==}
     dependencies:
       '@safe-global/api-kit': 1.3.1
       '@safe-global/protocol-kit': 1.3.0(ethers@5.7.2)
       '@walletconnect/client': 1.8.0
       '@web3auth/base': 4.6.0(@babel/runtime@7.23.2)
-      '@web3auth/modal': 4.6.2(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/client@1.8.0)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
+      '@web3auth/modal': 4.6.2(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/client@1.8.0)(@walletconnect/types@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
       '@web3auth/openlogin-adapter': 4.6.0(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)
       ethers: 5.7.2
     transitivePeerDependencies:
@@ -5504,7 +5664,6 @@ packages:
     resolution: {integrity: sha512-eJIUv7rPP+EC45uNYp/ThhSpE16k22VJUknt5OLoH9tbXoi8bMhwLf5xRuWMywamNbWzhrSmU7IBJfPup1+3fw==}
     dependencies:
       '@types/react': 18.2.28
-    dev: true
 
   /@types/react-transition-group@4.4.8:
     resolution: {integrity: sha512-QmQ22q+Pb+HQSn04NL3HtrqHwYMf4h3QKArOy5F8U5nEVMaihBs3SR10WiOM1iwPz5jIo8x/u11al+iEGZZrvg==}
@@ -6528,7 +6687,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@web3auth/modal@4.6.2(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/client@1.8.0)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0):
+  /@web3auth/modal@4.6.2(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/client@1.8.0)(@walletconnect/types@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0):
     resolution: {integrity: sha512-SkR8iitM9R3Oth785y8zCDjpcex6EgaXt/oZkG+CbsEcF7fzkiSq8vB/N+6hsEMmHMESuU5JHHcyqa5NA/TYBg==}
     deprecated: Not supported. Pls upgrade
     peerDependencies:
@@ -6543,7 +6702,7 @@ packages:
       '@web3auth/torus-evm-adapter': 4.6.0(@babel/runtime@7.23.2)
       '@web3auth/torus-solana-adapter': 4.6.0(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)
       '@web3auth/ui': 4.6.2(@babel/runtime@7.23.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
-      '@web3auth/wallet-connect-v1-adapter': 4.6.0(@babel/runtime@7.23.2)(@walletconnect/client@1.8.0)
+      '@web3auth/wallet-connect-v1-adapter': 4.6.0(@babel/runtime@7.23.2)(@walletconnect/client@1.8.0)(@walletconnect/types@2.10.2)
     transitivePeerDependencies:
       - '@sentry/types'
       - '@solana/web3.js'
@@ -6558,7 +6717,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@web3auth/modal@7.0.5(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/sign-client@2.10.1)(@walletconnect/utils@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0):
+  /@web3auth/modal@7.0.5(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/sign-client@2.10.1)(@walletconnect/types@2.10.2)(@walletconnect/utils@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0):
     resolution: {integrity: sha512-fa8Gus+gFggbVxZsazOnb+R7oG2Rr0ZIPbJx/gEtfzXtXvJzWH0yibJcsHMslhw3MN6n21Tqui1mjdjKsCT2+Q==}
     engines: {node: '>=18.x', npm: '>=9.x'}
     peerDependencies:
@@ -6578,7 +6737,7 @@ packages:
       '@web3auth/torus-evm-adapter': 7.0.4(@babel/runtime@7.23.2)
       '@web3auth/torus-solana-adapter': 7.0.4(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)
       '@web3auth/ui': 7.0.5(@babel/runtime@7.23.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
-      '@web3auth/wallet-connect-v2-adapter': 7.0.4(@babel/runtime@7.23.2)(@walletconnect/sign-client@2.10.1)(@walletconnect/utils@2.10.2)
+      '@web3auth/wallet-connect-v2-adapter': 7.0.4(@babel/runtime@7.23.2)(@walletconnect/sign-client@2.10.1)(@walletconnect/types@2.10.2)(@walletconnect/utils@2.10.2)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - '@sentry/types'
@@ -6890,7 +7049,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@web3auth/wallet-connect-v1-adapter@4.6.0(@babel/runtime@7.23.2)(@walletconnect/client@1.8.0):
+  /@web3auth/wallet-connect-v1-adapter@4.6.0(@babel/runtime@7.23.2)(@walletconnect/client@1.8.0)(@walletconnect/types@2.10.2):
     resolution: {integrity: sha512-+WSjZ0SvwVsu3nRV+nHQM1zm2C2O0Du9ZzrzEXjAHcTEXss1cFhGrLxIx+sM41pPHF6UeqcpnTeLBf+ASh4l6Q==}
     deprecated: wc v1 is deprecated. pls use wc v2
     peerDependencies:
@@ -6900,6 +7059,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.2
       '@walletconnect/client': 1.8.0
+      '@walletconnect/types': 2.10.2
       '@web3auth/base': 4.6.0(@babel/runtime@7.23.2)
       '@web3auth/base-evm-adapter': 4.6.0(@babel/runtime@7.23.2)
       '@web3auth/ethereum-provider': 4.6.0(@babel/runtime@7.23.2)
@@ -6910,7 +7070,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@web3auth/wallet-connect-v2-adapter@7.0.4(@babel/runtime@7.23.2)(@walletconnect/sign-client@2.10.1)(@walletconnect/utils@2.10.2):
+  /@web3auth/wallet-connect-v2-adapter@7.0.4(@babel/runtime@7.23.2)(@walletconnect/sign-client@2.10.1)(@walletconnect/types@2.10.2)(@walletconnect/utils@2.10.2):
     resolution: {integrity: sha512-qcOt6/f+ZpQQmtRGjCr8vtAto8oOwbpX0WqzQAL1Z44/hXhYY7ahOudML5JV3bBiOvix2dyeNdq1B3A/A9svxA==}
     engines: {node: '>=18.x', npm: '>=9.x'}
     peerDependencies:
@@ -6921,6 +7081,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.2
       '@walletconnect/sign-client': 2.10.1
+      '@walletconnect/types': 2.10.2
       '@walletconnect/utils': 2.10.2
       '@web3auth/base': 7.0.4(@babel/runtime@7.23.2)
       '@web3auth/base-evm-adapter': 7.0.4(@babel/runtime@7.23.2)
@@ -6953,7 +7114,7 @@ packages:
     dependencies:
       '@wagmi/core': 1.4.3(@types/react@18.2.28)(react@18.2.0)(typescript@5.2.2)(viem@1.16.5)(zod@3.22.4)
       '@web3auth/base': 7.0.4(@babel/runtime@7.23.2)
-      '@web3auth/modal': 7.0.5(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/sign-client@2.10.1)(@walletconnect/utils@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
+      '@web3auth/modal': 7.0.5(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)(@walletconnect/sign-client@2.10.1)(@walletconnect/types@2.10.2)(@walletconnect/utils@2.10.2)(react-dom@18.2.0)(react-native@0.72.6)(react@18.2.0)
       '@web3auth/no-modal': 7.0.4(@babel/runtime@7.23.2)
       '@web3auth/openlogin-adapter': 7.0.4(@babel/runtime@7.23.2)(@solana/web3.js@1.87.1)
       viem: 1.16.5(typescript@5.2.2)(zod@3.22.4)
