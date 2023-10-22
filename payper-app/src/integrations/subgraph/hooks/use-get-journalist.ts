@@ -3,12 +3,12 @@ import {  ApolloClient, gql } from "@apollo/client";
 import { useEffect, useState } from 'react';
 import {JournalistData} from '@/types';
 
-interface UseGetGraphJournalistParams {
+interface UseGetJournalistParams {
   client: ApolloClient<object>;
   journalistId: string;
 }
 
-interface UseGetGraphJournalistResponse {
+interface UseGetJournalistResponse {
   isLoading: Boolean;
   journalist?: JournalistData;
 }
@@ -19,7 +19,7 @@ interface UseGetGraphJournalistResponse {
 const useGetJournalist = ({
   journalistId,
   client,
-}: UseGetGraphJournalistParams): UseGetGraphJournalistResponse => {
+}: UseGetJournalistParams): UseGetJournalistResponse => {
   const [journalist, setJournalist] = useState<JournalistData>();
   const [isLoading, setIsLoading] = useState<Boolean>(true);
 

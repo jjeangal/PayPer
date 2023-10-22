@@ -21,7 +21,6 @@ export function Search({
                 placeholder="Search Articles"
                 className="md:w-[200px] lg:w-[300px]"
                 onChange={e => {
-                    console.log("HERE", e.target.value);
                     if (e.target.value.trim() === '') {
                         onSearchInputChange(searchTerm)
                     }

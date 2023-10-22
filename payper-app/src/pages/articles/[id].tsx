@@ -5,11 +5,15 @@ import Link from 'next/link'
 import { ArticleData } from '@/types';
 import { newsTypeEnum } from '@/lib/';
 import { useParams } from 'next/navigation';
-import { useGetArticleById } from '@/integrations/subgraph/hooks';
+import { useCheckPurchaseExists, useGetArticleById } from '@/integrations/subgraph/hooks';
 import { useApolloClient } from '@/integrations/subgraph/client';
-import { use, useCallback, useEffect, useMemo, useState } from 'react';
+import { use, useCallback, useEffect, useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Document, Page } from 'react-pdf'
+import { useAccount } from 'wagmi';
+import { Button } from "@/components/ui/button"
+import { useBuyArticle } from '@/integrations/payper-protocol/hooks/write';
+
 import { Button } from '@/components/ui/button';
 import { RateArticle } from '@/components/rate';
 import { useRateArticle } from '@/integrations/payper-protocol/hooks/write';
@@ -17,17 +21,32 @@ import { UseRateArticleParams } from '@/integrations/payper-protocol/hooks/write
 
 export default function Article() {
   const [article, setArticle] = useState<ArticleData>();
+  const  [isArticlePurchased, setIsArticlePurchased] = useState<Boolean>(false);
   const [rating, setRating] = useState<bigint>();
   const params = useParams();
   const client = useApolloClient();
+  const { address } = useAccount();
+
   const fetchArticle = async (articleId: number) => {
     const data = await useGetArticleById({
       client,
       articleId
     });
+    const purchaseExists = await useCheckPurchaseExists({
+      client,
+      articleId,
+      userAddress: address?.toString() || '',
+    })
     setArticle(data);
+    setIsArticlePurchased(purchaseExists);
   }
-  useMemo(() => {
+
+  const { sendTransaction } = useBuyArticle({
+    articleId: article?.id || BigInt(0), 
+    price: article?.price || BigInt(0),
+  });
+
+  useEffect(() => {
     if (!client) return;
     if (!params) return;
     if (!params.id) return;
@@ -61,6 +80,12 @@ export default function Article() {
                   </div>
                   <RateArticle articleId={article.id} />
                 </div>
+                <div className="mb-4 md:mb-0 text-lg space-x-4" style={{paddingTop: "10px"}}>
+                  Price: {article.price.toString()} wei
+                </div>
+                <div className="mb-4 md:mb-0 text-lg space-x-4" style={{paddingTop: "10px"}}>
+                  Price: {article.price.toString()} wei
+                </div>
               </div>
               <div>
                 <div
@@ -69,9 +94,23 @@ export default function Article() {
                 />
                 <Avatar journalist={article.journalist} />
               </div>
-              <Document file={article.encryptedUrl} >
-                <Page />
-              </Document>
+              {isArticlePurchased
+                ? (
+                  <Document file={article.encryptedUrl} >
+                    <Page />
+                  </Document>
+                ) : (
+                  <div>
+                    <h1 style={{paddingTop: "30px", fontWeight: "bold"}}>
+                      To unlock the full content you must purchase this article.
+                    </h1>
+                    <Button
+                      onClick={sendTransaction}
+                    >
+                      Purchase
+                    </Button>
+                  </div>
+                )}
             </div>
           </>
         ) : (
@@ -84,7 +123,6 @@ export default function Article() {
           </div>
         )
       }
-
     </section>
   )
 }
