@@ -15,18 +15,18 @@ export default function Article() {
   const [article, setArticle] = useState<ArticleData>();
   const params = useParams();
   const client = useApolloClient();
-  console.log('params: ', params)
-
-  const fetchArticle = async () => {
+  const fetchArticle = async (articleId: number) => {
     const data = await useGetArticleById({
       client,
-      articleId: Number(params.article)
+      articleId
     });
     setArticle(data);
-    console.log(data);
   }
   useMemo(() => {
-    fetchArticle();
+    if (!client) return;
+    if (!params) return;
+    if (!params.id) return;
+    fetchArticle(Number(params.id));
   }, [params]);
 
   return (
