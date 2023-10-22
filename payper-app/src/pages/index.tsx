@@ -33,37 +33,19 @@ export default function Index({ preview }: any) {
   }, [client])
 
   return (
-    <Layout preview={preview}>
-      <Head>
-        <title>{`Next.js Blog Example with Wagmi`}</title>
-      </Head>
-      <Container>
-        <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
-            PayPer.
-          </h1>
-          <div className="flex md:justify-between space-x-10">
-            <Button>+ Create Article</Button>
-            {(address && !isDisconnected) && (
-              <Button onClick={() => router.push('/dashboard')}>
-                My Dashboard
-              </Button>
-            )}
-            <ConnectKitButton />
-          </div>
-        </section>
-        {heroPost && (
-          <HeroPost
-            title={heroPost.name}
-            coverImage="https://images.mirror-media.xyz/publication-images/O-CmyFt2pFJVBvJMk4izE.png?height=2160&width=4320"
-            date={heroPost.date}
-            journalist={heroPost.journalist}
-            id={Number(heroPost.id)}
-            excerpt={heroPost.freeContent}
-          />
-        )}
-        {moreArticles.length > 0 && <MoreArticles articles={moreArticles} />}
-      </Container>
-    </Layout>
+    <>
+      {heroPost && (
+        <HeroPost
+          title={heroPost.name}
+          coverImage={heroPost.imageUrl}
+          date={heroPost.date}
+          journalist={heroPost.journalist}
+          id={Number(heroPost.id)}
+          excerpt={heroPost.freeContent}
+          newsType={heroPost.newsType}
+        />
+      )}
+      {moreArticles.length > 0 && <MoreArticles articles={moreArticles} />}
+    </>
   )
 }

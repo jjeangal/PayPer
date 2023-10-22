@@ -3,6 +3,7 @@ import DateComponent from './date'
 import CoverImage from './cover-image'
 import Link from 'next/link'
 import { Address } from '@/types';
+import newsTypeEnum from '@/lib/news-value';
 
 interface HeroPostProps {
   id: number;
@@ -11,6 +12,7 @@ interface HeroPostProps {
   date: bigint;
   excerpt: string;
   journalist: Address;
+  newsType: number;
 }
 
 export default function HeroPost({
@@ -20,6 +22,7 @@ export default function HeroPost({
   date,
   excerpt,
   journalist,
+  newsType
 }: HeroPostProps) {
 
   const readableDate = new Date(Number(date)).toISOString();
@@ -35,13 +38,18 @@ export default function HeroPost({
         <div>
           <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
             <Link
-              href={`/posts/${id}`}
+              href={`/articles/${id}`}
               className="hover:underline"
               dangerouslySetInnerHTML={{ __html: title }}
             ></Link>
           </h3>
-          <div className="mb-4 md:mb-0 text-lg">
+          <div className="mb-4 md:mb-0 text-lg space-x-4">
             <DateComponent dateString={readableDate} />
+            <div
+              className="text-xs inline-flex font-bold uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full"
+            >
+              {newsTypeEnum[newsType]}
+            </div>
           </div>
         </div>
         <div>

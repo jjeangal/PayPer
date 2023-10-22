@@ -13,10 +13,11 @@ export default function MoreStories({ articles }: { articles: ArticleData[] }) {
             key={article.id}
             id={Number(article.id)}
             title={article.name}
-            coverImage="https://next-blog-wordpress.vercel.app/_next/image?url=https%3A%2F%2Fvercelsolutions.com%2Fwp-content%2Fuploads%2F2022%2F06%2Fhamman-mohamed-C69xTC5q_pE-unsplash-scaled.jpg&w=3840&q=75"
             date={article.date}
+            coverImage={article.imageUrl}
             journalist={article.journalist}
             excerpt={article.freeContent}
+            newsType={article.newsType}
           />
         ))}
       </div>
