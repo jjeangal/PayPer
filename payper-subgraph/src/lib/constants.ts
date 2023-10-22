@@ -3,7 +3,7 @@ import { Address, BigDecimal, BigInt, Bytes } from "@graphprotocol/graph-ts";
 export let ADDRESS_ZERO = Address.zero();
 
 export let BIG_DECIMAL_ZERO = BigDecimal.fromString("0");
-export let ETHER = BigInt.fromString("1_000_000_000_000_000_000");
+export let ETHER = BigDecimal.fromString("1_000_000_000_000_000_000");
 
 export let BIG_INT_ZERO = BigInt.fromI32(0);
 export let BIG_INT_ONE = BigInt.fromI32(1);

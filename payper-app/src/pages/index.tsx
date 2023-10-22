@@ -25,9 +25,12 @@ export default function Index({ preview }: any) {
   }
 
   useEffect(() => {
-    if (!client) return;
-    fetchArticles();
-  }, [client])
+    if (articles) {
+      setHeroPost(articles[0])
+      setMoreArticles(articles.slice(1))
+    }
+  }, [articles])
+
 
   return (
     <Layout preview={preview}>
@@ -41,6 +44,7 @@ export default function Index({ preview }: any) {
           </h1>
           <div className="flex md:justify-between space-x-10">
             <Button>+ Create Article</Button>
+            <Button onClick={sendNotification}>Send Test Notification</Button>
             <ConnectKitButton />
           </div>
         </section>
@@ -59,3 +63,12 @@ export default function Index({ preview }: any) {
     </Layout>
   )
 }
+
+const sendNotification = async () => {
+  try {
+    console.log("hjere")
+    await fetch('/api/send-notification'); // Replace with your API route path
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};

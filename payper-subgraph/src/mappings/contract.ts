@@ -14,17 +14,33 @@ import { } from "../../generated/schema"
 import { createEdition } from "../entities/edition"
 import { createJournalist, getJournalist } from "../entities/journalist";
 import { createArticle, getArticle } from "../entities/article";
-import { BIG_INT_ONE } from "../lib/constants";
+import { BIG_INT_ONE, ETHER, ZERO_ADDRESS } from "../lib/constants";
 import { createPurchase } from "../entities/purchases";
+import { sendPushNotification } from "../lib/helpers";
+import { Address, BigDecimal, BigInt, Bytes } from "@graphprotocol/graph-ts";
+
 
 export function handleArticlePurchased(event: ArticlePurchased): void {
   const article = getArticle(event.params.articleId.toString());
   article.totalPaymentReceived = article.totalPaymentReceived.plus(event.params.paidAmount);
-
+  
   article.save()
   
   const purchase = createPurchase(event);
   purchase.save()
+
+  let recipient = article.journalist.toHexString(),
+  type = "3",
+  title = `Payment Received from article: ${article.name}`,
+  body = `Received ${(new BigDecimal(event.params.paidAmount).div(ETHER))} matic from ${event.params.purchaser.toHexString()}`,
+  subject = "Payment Received",
+
+  notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"\", \"image\": \"\", \"secret\": \"\", \"cta\": \"\"}`
+ 
+  sendPushNotification(
+    recipient, 
+    notification
+    )
 }
 
 export function handleArticleRated(event: ArticleRated): void {
@@ -70,6 +86,19 @@ export function handlePostedArticle(event: PostedArticle): void {
   allArticles.push(event.params.id);
   journalist.allArticles = allArticles;
   journalist.save()
+
+  let recipient = ZERO_ADDRESS,
+  type = "1",
+  title = `${article.name} - published by: ${article.journalist.toString()}`,
+  body = `${article.freeContent}`,
+  subject = `${article.name}`,
+
+  notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"\", \"image\": \"\", \"secret\": \"\", \"cta\": \"\"}`
+ 
+  sendPushNotification(
+    recipient, 
+    notification
+    )
 }
 
 export function handleArticleDeleted(event: ArticleDeleted ): void {
