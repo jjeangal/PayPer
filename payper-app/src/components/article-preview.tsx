@@ -3,6 +3,7 @@ import DateComponent from './date'
 import CoverImage from './cover-image'
 import Link from 'next/link'
 import { Address } from '@/types';
+import { newsTypeEnum } from '@/lib/';
 
 interface ArticlePreviewProps {
   id: number;
@@ -11,6 +12,7 @@ interface ArticlePreviewProps {
   date: bigint;
   excerpt: string;
   journalist: Address;
+  newsType: number;
 }
 
 export default function ArticlePreview({
@@ -20,6 +22,7 @@ export default function ArticlePreview({
   date,
   excerpt,
   journalist,
+  newsType
 }: ArticlePreviewProps) {
 
   const readableDate = new Date(Number(date)).toISOString();
@@ -33,13 +36,18 @@ export default function ArticlePreview({
       </div>
       <h3 className="text-3xl mb-3 leading-snug">
         <Link
-          href={`/posts/${id}`}
+          href={`/articles/${id}`}
           className="hover:underline"
           dangerouslySetInnerHTML={{ __html: title }}
         ></Link>
       </h3>
-      <div className="text-lg mb-4">
+      <div className="text-lg mb-4 space-x-4">
         <DateComponent dateString={readableDate} />
+        <div
+          className="text-xs inline-flex font-bold uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full"
+        >
+          {newsTypeEnum[newsType]}
+        </div>
       </div>
       <div
         className="text-lg leading-relaxed mb-4"

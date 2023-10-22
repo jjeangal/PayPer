@@ -36,3 +36,15 @@ type Purchase @entity {
   price: BigInt!
   purchaser: Bytes!
 }
+
+type EpnsNotificationCounter @entity {
+  id: ID!
+  totalCount: BigInt!
+}
+
+type EpnsPushNotification @entity {
+  id: ID!
+  notificationNumber: BigInt!
+  recipient: String!
+  notification: String!
+}
