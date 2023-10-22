@@ -1,6 +1,6 @@
 import { ArticleData, CalculateDashboardInformationResponse } from '@/types'
 import { calculateRating } from '.';
-import web3 from 'web3';
+const web3 = require('web3');
 
 interface CalculateDashboardInformationParams {
   articles: ArticleData[];
