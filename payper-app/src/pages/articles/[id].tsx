@@ -7,12 +7,17 @@ import { newsTypeEnum } from '@/lib/';
 import { useParams } from 'next/navigation';
 import { useGetArticleById } from '@/integrations/subgraph/hooks';
 import { useApolloClient } from '@/integrations/subgraph/client';
-import { useMemo, useState } from 'react';
+import { use, useCallback, useEffect, useMemo, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Document, Page } from 'react-pdf'
+import { Button } from '@/components/ui/button';
+import { RateArticle } from '@/components/rate';
+import { useRateArticle } from '@/integrations/payper-protocol/hooks/write';
+import { UseRateArticleParams } from '@/integrations/payper-protocol/hooks/write/use-rate-article';
 
 export default function Article() {
   const [article, setArticle] = useState<ArticleData>();
+  const [rating, setRating] = useState<bigint>();
   const params = useParams();
   const client = useApolloClient();
   const fetchArticle = async (articleId: number) => {
@@ -52,7 +57,9 @@ export default function Article() {
                     className="text-xs inline-flex font-bold uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full"
                   >
                     {newsTypeEnum[article.newsType]}
+                    
                   </div>
+                  <RateArticle articleId={article.id} />
                 </div>
               </div>
               <div>
