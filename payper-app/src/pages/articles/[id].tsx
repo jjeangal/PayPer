@@ -82,9 +82,6 @@ export default function Article() {
                 <div className="mb-4 md:mb-0 text-lg space-x-4" style={{paddingTop: "10px"}}>
                   Price: {article.price.toString()} wei
                 </div>
-                <div className="mb-4 md:mb-0 text-lg space-x-4" style={{paddingTop: "10px"}}>
-                  Price: {article.price.toString()} wei
-                </div>
               </div>
               <div>
                 <div
