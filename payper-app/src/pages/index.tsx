@@ -70,12 +70,3 @@ export default function Index({ preview }: any) {
     </Layout>
   )
 }
-
-const sendNotification = async () => {
-  try {
-    console.log("hjere")
-    await fetch('/api/send-notification'); // Replace with your API route path
-  } catch (error) {
-    console.error('Error:', error);
-  }
-};
