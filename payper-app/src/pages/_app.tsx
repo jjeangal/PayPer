@@ -21,6 +21,7 @@ import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 // import { Web3AuthConnector } from "@web3auth/web3auth-wagmi-connector";
 // import { Web3Auth } from "@web3auth/modal";
 // import { CHAIN_NAMESPACES } from '@web3auth/base';
+import Base from '@/components/base';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -74,9 +75,11 @@ export default function MyApp({
   return (
     <WagmiConfig config={wagmiConfig}>
       <ConnectKitProvider>
-        <div className={inter.className}>
-          <Component {...pageProps} />
-        </div>
+        <Base>
+          <div className={inter.className}>
+            <Component {...pageProps} />
+          </div>
+        </Base>
       </ConnectKitProvider>
     </WagmiConfig>
   );

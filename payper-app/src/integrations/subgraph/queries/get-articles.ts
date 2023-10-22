@@ -9,6 +9,7 @@ const getArticlesQuery = `
       price
       date
       newsType
+      imageUrl
     }
   }
 `
