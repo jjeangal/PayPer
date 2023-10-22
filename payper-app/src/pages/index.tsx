@@ -5,7 +5,7 @@ import { ArticleData } from '@/types'
 import { useGetArticles } from '@/integrations/subgraph/hooks'
 import { useApolloClient } from '@/integrations/subgraph/client'
 import { Search } from '@/components/search'
-import newsTypeEnum from '@/lib/news-value'
+import { newsTypeEnum } from '@/lib/';
 
 export default function Index() {
   const [articles, setArticles] = useState<ArticleData[]>();
@@ -39,7 +39,7 @@ export default function Index() {
     });
     setArticles(filteredArticles);
     setHeroPost(filteredArticles[0])
-    setMoreArticles(filteredArticles.slice(1))   
+    setMoreArticles(filteredArticles.slice(1))
   }
 
   useEffect(() => {
@@ -49,13 +49,13 @@ export default function Index() {
 
   return (
     <>
-      <Search 
+      <Search
         onSearchInputChange={(term: string) => setSearchTerm(term)}
       />
       {!articles?.length && (
         <p>
           No articles meet this search.
-        </p>         )}
+        </p>)}
       {heroPost && (
         <HeroPost
           title={heroPost.name}

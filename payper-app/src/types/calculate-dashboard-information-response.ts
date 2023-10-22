@@ -1,5 +1,5 @@
 interface CalculateDashboardInformationResponse {
-  totalRevenue: number; 
+  totalRevenue: string; 
   averageArticleRating: bigint;
 }
 

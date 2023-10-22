@@ -45,7 +45,8 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "viem": "^1.16.5",
-    "wagmi": "^1.4.3"
+    "wagmi": "^1.4.3",
+    "web3": "^4.2.0"
   },
   "devDependencies": {
     "@graphprotocol/client-cli": "^3.0.0",

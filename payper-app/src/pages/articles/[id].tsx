@@ -3,7 +3,7 @@ import DateComponent from '@/components/date'
 import CoverImage from '@/components/cover-image'
 import Link from 'next/link'
 import { ArticleData } from '@/types';
-import newsTypeEnum from '@/lib/news-value';
+import { newsTypeEnum } from '@/lib/';
 import { useParams } from 'next/navigation';
 import { useGetArticleById } from '@/integrations/subgraph/hooks';
 import { useApolloClient } from '@/integrations/subgraph/client';

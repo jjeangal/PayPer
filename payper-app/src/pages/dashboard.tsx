@@ -35,7 +35,7 @@ export default function DashboardPage() {
         articles,
     } = useGetArticlesFromJournalist({
         client,
-        journalistId: address?.toString() || ''
+        journalistId: '0x30d38078d6117285d6730f971d3f50a9004a575b'
     });
 
     const {
@@ -43,7 +43,7 @@ export default function DashboardPage() {
         journalist,
     } = useGetJournalist({
         client,
-        journalistId: address || '' as Address
+        journalistId: '0x30d38078d6117285d6730f971d3f50a9004a575b'
     });
 
 
