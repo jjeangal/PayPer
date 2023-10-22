@@ -1,4 +1,7 @@
-import { Address, ArticleData, CalculateDashboardInformationResponse } from "@/types";
+import {
+    Address,
+    CalculateDashboardInformationResponse,
+} from "@/types";
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent } from "@/components/ui/tabs"
 import {
@@ -7,11 +10,17 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { calculateDashboardInformation, calculateRating } from "@/lib";
+import {
+    calculateDashboardInformation, 
+    calculateRating,
+} from "@/lib";
 import ArticlesList from "@/components/dashboard/articles-list";
 import { useAccount } from "wagmi";
 import { useRouter } from "next/router";
-import { useGetArticlesFromJournalist, useGetJournalist } from "@/integrations/subgraph/hooks";
+import {
+    useGetArticlesFromJournalist, 
+    useGetJournalist, 
+} from "@/integrations/subgraph/hooks";
 import { useApolloClient } from "@/integrations/subgraph/client";
 
 export default function DashboardPage() {

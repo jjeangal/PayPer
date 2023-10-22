@@ -7,7 +7,7 @@ import newsTypeEnum from '@/lib/news-value';
 import { useParams } from 'next/navigation';
 import { useGetArticleById } from '@/integrations/subgraph/hooks';
 import { useApolloClient } from '@/integrations/subgraph/client';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Document, Page } from 'react-pdf'
 
