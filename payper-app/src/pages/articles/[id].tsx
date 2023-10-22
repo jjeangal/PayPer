@@ -75,13 +75,9 @@ export default function Article() {
                     className="text-xs inline-flex font-bold uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full"
                   >
                     {newsTypeEnum[article.newsType]}
-                    
                   </div>
                   <RateArticle articleId={article.id} />
-                </div>
-                <div className="mb-4 md:mb-0 text-lg space-x-4" style={{paddingTop: "10px"}}>
-                  Price: {article.price.toString()} wei
-                </div>
+                </div> 
               </div>
               <div>
                 <div
@@ -100,6 +96,9 @@ export default function Article() {
                     <h1 style={{paddingTop: "30px", fontWeight: "bold"}}>
                       To unlock the full content you must purchase this article.
                     </h1>
+                    <div className="mb-4 md:mb-0 text-lg space-x-4" style={{paddingTop: "5px", paddingBottom: "5px"}}>
+                      Price: {article.price.toString()} wei
+                    </div>
                     <Button
                       onClick={sendTransaction}
                     >

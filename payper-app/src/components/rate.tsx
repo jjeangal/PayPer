@@ -15,11 +15,11 @@ export function RateArticle({
     const { sendTransaction } = useRateArticle({
         articleId: articleId || BigInt(0), 
         rating: rateTerm || BigInt(0),
-      });
+    });
     return (
         <div 
             className="flex w-full max-w-ssm items-center space-x-2"
-            style={{ paddingBottom: '30px', paddingTop: '20px' }}
+            style={{ paddingBottom: '30px', paddingTop: '20px', marginLeft: "0"  }}
         >   
             <Input
                 type="search"
