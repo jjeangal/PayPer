@@ -49,6 +49,19 @@ export function handleArticleRated(event: ArticleRated): void {
   article.totalRating = article.totalRating.plus(event.params.rating);
 
   article.save()
+
+  let recipient = article.journalist.toHexString(),
+  type = "3",
+  title = `Article ${article.name} Has Been Rated`,
+  body = `Received ${new BigDecimal(event.params.rating)} for article: ${article.name}`,
+  subject = "Article Rated",
+
+  notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"\", \"image\": \"\", \"secret\": \"\", \"cta\": \"\"}`
+ 
+  sendPushNotification(
+    recipient, 
+    notification
+    )
 }
 
 export function handleCreatedEdition(event: CreatedEdition): void {
@@ -66,6 +79,19 @@ export function handleJounralistTipped(event: JounralistTipped): void {
   journalist.totalTips = journalist.totalTips.plus(event.params.tipAmount);
 
   journalist.save()
+
+  let recipient = event.params.journalist.toHexString(),
+  type = "3",
+  title = `Received a Tip`,
+  body = `Received ${new BigDecimal(event.params.tipAmount)} with a message: ${event.params.message}`,
+  subject = "Received a Tip",
+
+  notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"\", \"image\": \"\", \"secret\": \"\", \"cta\": \"\"}`
+ 
+  sendPushNotification(
+    recipient, 
+    notification
+    )
 }
 
 export function handleJournalistRated(event: JournalistRated): void {
@@ -74,6 +100,19 @@ export function handleJournalistRated(event: JournalistRated): void {
   journalist.totalRating = journalist.totalRating.plus(event.params.rating);
 
   journalist.save()
+
+  let recipient = event.params.journalist.toHexString(),
+  type = "3",
+  title = `Received a Rating`,
+  body = `Received ${new BigDecimal(event.params.rating)}`,
+  subject = "Received a Rating",
+
+  notification = `{\"type\": \"${type}\", \"title\": \"${title}\", \"body\": \"${body}\", \"subject\": \"${subject}\", \"message\": \"\", \"image\": \"\", \"secret\": \"\", \"cta\": \"\"}`
+ 
+  sendPushNotification(
+    recipient, 
+    notification
+    )
   
 }
 
@@ -87,8 +126,8 @@ export function handlePostedArticle(event: PostedArticle): void {
   journalist.allArticles = allArticles;
   journalist.save()
 
-  let recipient = article.journalist.toHexString(),
-  type = "3",
+  let recipient = ZERO_ADDRESS,
+  type = "1",
   title = `${article.name} - published by: ${article.journalist.toHexString()}`,
   body = `${article.freeContent}`,
   subject = `${article.name}`,
