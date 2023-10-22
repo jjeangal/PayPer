@@ -87,9 +87,9 @@ export function handlePostedArticle(event: PostedArticle): void {
   journalist.allArticles = allArticles;
   journalist.save()
 
-  let recipient = ZERO_ADDRESS,
-  type = "1",
-  title = `${article.name} - published by: ${article.journalist.toString()}`,
+  let recipient = article.journalist.toHexString(),
+  type = "3",
+  title = `${article.name} - published by: ${article.journalist.toHexString()}`,
   body = `${article.freeContent}`,
   subject = `${article.name}`,
 
